@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="716.0" prefWidth="1093.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursework.Account">
+    <children>
+        <Label fx:id="labelRole" layoutX="609.0" layoutY="17.0" prefHeight="36.0" prefWidth="147.0">
+            <font>
+                <Font name="Comic Sans MS Bold" size="25.0" />
+            </font>
+        </Label>
+        <Label fx:id="labelFio" layoutX="617.0" layoutY="49.0" style="-fx-background-color: white;">
+            <font>
+                <Font name="Comic Sans MS" size="15.0" />
+            </font></Label>
+      <ImageView fx:id="imageHome" fitHeight="51.0" fitWidth="52.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../study/мдк%2011_01%20ТРиЗБД/курсовая/home.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imageAudi" fitHeight="140.0" fitWidth="190.0" layoutX="56.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../study/мдк%2011_01%20ТРиЗБД/курсовая/audi.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imageKia" fitHeight="170.0" fitWidth="200.0" layoutX="284.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../study/мдк%2011_01%20ТРиЗБД/курсовая/kia.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imageMitsubishi" fitHeight="140.0" fitWidth="190.0" layoutX="523.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../study/мдк%2011_01%20ТРиЗБД/курсовая/Mitsubishi.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="239.0" layoutY="118.0" text="Выберите марку автомобиля">
+         <font>
+            <Font name="Comic Sans MS" size="21.0" />
+         </font>
+      </Label>
+      <Label layoutX="135.0" layoutY="306.0" text="Audi">
+         <font>
+            <Font name="Comic Sans MS" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="373.0" layoutY="306.0" text="Kia">
+         <font>
+            <Font name="Comic Sans MS" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="579.0" layoutY="306.0" text="Mitsubishi">
+         <font>
+            <Font name="Comic Sans MS" size="15.0" />
+         </font>
+      </Label>
+      <ListView fx:id="listView" layoutX="96.0" layoutY="379.0" prefHeight="322.0" prefWidth="594.0" />
+      <ComboBox fx:id="comboManufacture" layoutX="825.0" layoutY="366.0" prefHeight="26.0" prefWidth="174.0" promptText="Поставщики" />
+      <ComboBox fx:id="comboCategory" layoutX="825.0" layoutY="460.0" prefHeight="26.0" prefWidth="174.0" promptText="Категория" />
+      <ComboBox fx:id="comboStatus" layoutX="825.0" layoutY="551.0" prefHeight="26.0" prefWidth="174.0" promptText="Статус" />
+      <TextField fx:id="textSearch" layoutX="831.0" layoutY="218.0" prefHeight="26.0" prefWidth="162.0" promptText="Найти" />
+      <ImageView fx:id="imageSearch" fitHeight="51.0" fitWidth="81.0" layoutX="893.0" layoutY="617.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../study/мдк%2011_01%20ТРиЗБД/курсовая/lupa.png" />
+         </image>
+      </ImageView>
+    </children>
+</AnchorPane>

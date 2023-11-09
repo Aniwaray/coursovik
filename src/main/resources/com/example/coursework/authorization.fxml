@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="494.0" prefWidth="409.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursework.Authorization">
+    <TextField fx:id="textLogin" layoutX="130.0" layoutY="171.0" promptText="Логин" />
+    <Button fx:id="buttonEnter" layoutX="161.0" layoutY="301.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="82.0" style="-fx-background-color: red;" text="Войти" textFill="WHITE">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+    <Label layoutX="117.0" layoutY="87.0" prefHeight="31.0" prefWidth="170.0" text="АВТОРИЗАЦИЯ" textAlignment="CENTER" textFill="#f20000">
+        <font>
+            <Font name="Comic Sans MS Bold" size="21.0" />
+        </font>
+    </Label>
+    <Button fx:id="buttonRegistration" layoutX="135.0" layoutY="404.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" style="-fx-background-color: red;" text="Зарегистрироваться" textFill="#fff6f6">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+    <PasswordField fx:id="textPassword" layoutX="130.0" layoutY="234.0" promptText="Пароль" />
+   <Label layoutX="153.0" layoutY="363.0" text="Нет аккаунта?" textFill="RED">
+      <font>
+         <Font name="System Bold" size="15.0" />
+      </font>
+   </Label>
+   <ImageView fitHeight="31.0" fitWidth="33.0" layoutX="287.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../../../../../../../../../../study/мдк%2011_01%20ТРиЗБД/курсовая/autorization2.png" />
+      </image>
+   </ImageView>
+   <Button fx:id="buttonSee" layoutX="291.0" layoutY="234.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="31.0" style="-fx-background-color: white;" text="👀" />
+   <TextField fx:id="textPasswordSee" layoutX="130.0" layoutY="234.0" promptText="Пароль" />
+</AnchorPane>

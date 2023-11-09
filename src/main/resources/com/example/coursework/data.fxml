@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="287.0" prefWidth="573.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <HBox fx:id="hBox" layoutY="140.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="146.0" prefWidth="573.0">
+            <children>
+                <VBox prefHeight="146.0" prefWidth="271.0">
+                    <children>
+                        <Label prefHeight="38.0" prefWidth="155.0" text="  Наименование товара:" textFill="#080808" textOverrun="WORD_ELLIPSIS">
+                            <font>
+                                <Font name="Comic Sans MS Bold" size="12.0" />
+                            </font>
+                        </Label>
+                        <Label prefHeight="34.0" prefWidth="126.0" text="  Описание товара:" textFill="#080808" textOverrun="WORD_ELLIPSIS">
+                            <font>
+                                <Font name="Comic Sans MS Bold" size="12.0" />
+                            </font>
+                        </Label>
+                        <Label prefHeight="42.0" prefWidth="126.0" text="  Производитель:" textFill="#080808" textOverrun="WORD_ELLIPSIS">
+                            <font>
+                                <Font name="Comic Sans MS Bold" size="12.0" />
+                            </font>
+                        </Label>
+                  <Label prefHeight="26.0" prefWidth="123.0" text="  Категория:" textFill="#080808">
+                     <font>
+                        <Font name="Comic Sans MS Bold" size="12.0" />
+                     </font>
+                  </Label>
+                    </children>
+                </VBox>
+                <VBox prefHeight="146.0" prefWidth="295.0">
+                    <children>
+                        <Label fx:id="labelName" prefHeight="38.0" prefWidth="184.0" text="Label" textFill="#080808" />
+                        <Label fx:id="labelDescription" prefHeight="34.0" prefWidth="187.0" text="Label" textFill="#080808" />
+                        <Label fx:id="labelManufacturer" prefHeight="38.0" prefWidth="195.0" text="Label" textFill="#080808" />
+                  <Label fx:id="labelCategory" prefHeight="36.0" prefWidth="189.0" text="Label" textFill="#080808" />
+                    </children>
+                </VBox>
+            <VBox prefHeight="146.0" prefWidth="232.0">
+               <children>
+                      <Label prefHeight="46.0" prefWidth="146.0" text="Наличие на складе:" textFill="#080808">
+                          <font>
+                              <Font name="Comic Sans MS Bold" size="12.0" />
+                          </font>
+                      </Label>
+                        <Label prefHeight="26.0" prefWidth="129.0" text="        Цена:" textFill="#080808" textOverrun="WORD_ELLIPSIS">
+                            <font>
+                                <Font name="Comic Sans MS Bold" size="12.0" />
+                            </font>
+                        </Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="146.0" prefWidth="184.0">
+               <children>
+                      <Label fx:id="labelStock" prefHeight="47.0" prefWidth="78.0" text="Label" textFill="#080808" />
+                        <Label fx:id="labelPrice" prefHeight="25.0" prefWidth="78.0" text="Label" textFill="#080808" />
+               </children>
+            </VBox>
+            </children>
+        </HBox>
+      <HBox prefHeight="150.0" prefWidth="572.0">
+         <children>
+                <ImageView fx:id="imageView1" fitHeight="150.0" fitWidth="190.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imageView2" fitHeight="150.0" fitWidth="190.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imageView3" fitHeight="150.0" fitWidth="190.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </HBox>
+    </children>
+</AnchorPane>
