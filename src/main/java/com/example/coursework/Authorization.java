@@ -83,7 +83,7 @@ public class Authorization {
                                     || Objects.equals(database.getRole(textLogin.getText()), "Администратор")) {
 
                                 FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("MainAccount.fxml"));
-                                Scene scene = new Scene(fxmlLoader.load(), 1093, 716);
+                                Scene scene = new Scene(fxmlLoader.load(), 1093, 826);
                                 Stage stage = new Stage();
                                 stage.setScene(scene);
                                 stage.show();

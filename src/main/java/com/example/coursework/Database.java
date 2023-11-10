@@ -2,7 +2,7 @@ package com.example.coursework;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class Database {
 
@@ -12,7 +12,7 @@ public class Database {
     private final String login = "root";
     private final String password = "vanessa2020k";
 
-    private static int max;
+    private static int max, price;
 
     private Connection getDbConnection() throws ClassNotFoundException, SQLException {
         String connStr = "jdbc:mysql://" + host + ":" + port + "/" + dbName + "?characterEncoding=UTF8";
@@ -21,18 +21,20 @@ public class Database {
         return DriverManager.getConnection(connStr, login, password);
     }
 
+    public ArrayList<String> getPrice(String name) throws SQLException, ClassNotFoundException {
 
-    public List<String> getPhoto(Integer id) throws SQLException, ClassNotFoundException {
-        String sql = "select name from product_photo join product on product_photo.product_id_product=product.id_product where id_product ='" + id + "'";
-        PreparedStatement statement = getDbConnection().prepareStatement(sql);
-        ResultSet res = statement.executeQuery();
+        String sql = "SELECT productPrice FROM product where productName='" + name + "' ";
 
-        ArrayList<String> product = new ArrayList<>();
-        while (res.next())
-            product.add(res.getString("name"));
-        System.out.println(product);
-        return product;
+        Statement statement = getDbConnection().createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        ArrayList<String> productPrice = new ArrayList<>();
+        while (resultSet.next())
+            productPrice.add(resultSet.getString("productPrice"));
+
+        return productPrice;
     }
+
     public int getStaff(String log, String pas) throws SQLException, ClassNotFoundException {
         String sql = "SELECT count(*) as n FROM staff where login=? and password=?";
         PreparedStatement statement = getDbConnection().prepareStatement(sql);
@@ -122,57 +124,36 @@ public class Database {
 
         ArrayList<ProductData> product = new ArrayList<>();
         while (res.next())
-            product.add(new ProductData(res.getString("productName"), res.getString("productDescription"), res.getInt("productPrice"), res.getInt("productQuantityInStock"), res.getString("productStatus"), res.getInt("category_id_category"), res.getInt("manufacture_id_manufacture"), res.getInt("model_cars_id_model")));
+            product.add(new ProductData(res.getString("productName"), res.getString("productDescription"), res.getInt("productPrice"), res.getInt("productQuantityInStock"), res.getString("productStatus"), res.getString("productPhoto"), res.getInt("category_id_category"), res.getInt("manufacture_id_manufacture"), res.getInt("model_cars_id_model")));
         return product;
     }
 
     public ArrayList getProductSearch(String name) throws SQLException, ClassNotFoundException {
         String sql = "SELECT * FROM product where productName like ?";
+
         PreparedStatement statement = getDbConnection().prepareStatement(sql);
         statement.setString(1, "%" + name + "%");
-
         ResultSet res = statement.executeQuery();
 
-        ArrayList<ProductData> stud = new ArrayList<>();
+        ArrayList<ProductData> product = new ArrayList<>();
 
         while (res.next())
-            stud.add(new ProductData(res.getString("productName"), res.getString("productDescription"), res.getInt("productPrice"), res.getInt("productQuantityInStock"), res.getString("productStatus"), res.getInt("category_id_category"), res.getInt("manufacture_id_manufacture"), res.getInt("model_cars_id_model")));
-        return stud;
+            product.add(new ProductData(res.getString("productName"), res.getString("productDescription"), res.getInt("productPrice"), res.getInt("productQuantityInStock"), res.getString("productStatus"), res.getString("productPhoto"), res.getInt("category_id_category"), res.getInt("manufacture_id_manufacture"), res.getInt("model_cars_id_model")));
+        return product;
     }
-    public ArrayList<ProductData> getProductSortCat(Integer cat) throws SQLException, ClassNotFoundException {
-        String sql = "SELECT * FROM product where category_id_category ='" + cat + "'";;
 
-        Statement statement = getDbConnection().createStatement();
-        ResultSet res = statement.executeQuery(sql);
-
-        ArrayList<ProductData> stud = new ArrayList<>();
-        while (res.next())
-            stud.add(new ProductData(res.getString("productName"), res.getString("productDescription"), res.getInt("productPrice"), res.getInt("productQuantityInStock"), res.getString("productStatus"), res.getInt("category_id_category"), res.getInt("manufacture_id_manufacture"), res.getInt("model_cars_id_model")));
-        return stud;
-    }
     public ArrayList<ProductData> getProductSortMan(Integer man) throws SQLException, ClassNotFoundException {
         String sql = "SELECT * FROM product where manufacture_id_manufacture ='" + man + "'";;
 
         Statement statement = getDbConnection().createStatement();
         ResultSet res = statement.executeQuery(sql);
 
-        ArrayList<ProductData> stud = new ArrayList<>();
+        ArrayList<ProductData> product = new ArrayList<>();
         while (res.next())
-            stud.add(new ProductData(res.getString("productName"), res.getString("productDescription"), res.getInt("productPrice"), res.getInt("productQuantityInStock"), res.getString("productStatus"), res.getInt("category_id_category"), res.getInt("manufacture_id_manufacture"), res.getInt("model_cars_id_model")));
-        return stud;
+            product.add(new ProductData(res.getString("productName"), res.getString("productDescription"), res.getInt("productPrice"), res.getInt("productQuantityInStock"), res.getString("productStatus"), res.getString("productPhoto"), res.getInt("category_id_category"), res.getInt("manufacture_id_manufacture"), res.getInt("model_cars_id_model")));
+        return product;
     }
 
-    public ArrayList<ProductData> getProductSortStat(String stat) throws SQLException, ClassNotFoundException {
-        String sql = "SELECT * FROM product where productStatus ='" + stat + "'";;
-
-        Statement statement = getDbConnection().createStatement();
-        ResultSet res = statement.executeQuery(sql);
-
-        ArrayList<ProductData> stud = new ArrayList<>();
-        while (res.next())
-            stud.add(new ProductData(res.getString("productName"), res.getString("productDescription"), res.getInt("productPrice"), res.getInt("productQuantityInStock"), res.getString("productStatus"), res.getInt("category_id_category"), res.getInt("manufacture_id_manufacture"), res.getInt("model_cars_id_model")));
-        return stud;
-    }
 
     public ArrayList<ProductData> getProductModel(Integer model) throws SQLException, ClassNotFoundException {
         String sql = "SELECT * FROM product where model_cars_id_model ='" + model + "'";
@@ -182,10 +163,84 @@ public class Database {
 
         ArrayList<ProductData> product = new ArrayList<>();
         while (res.next())
-            product.add(new ProductData(res.getString("productName"), res.getString("productDescription"), res.getInt("productPrice"), res.getInt("productQuantityInStock"), res.getString("productStatus"), res.getInt("category_id_category"), res.getInt("manufacture_id_manufacture"), res.getInt("model_cars_id_model")));
+            product.add(new ProductData(res.getString("productName"), res.getString("productDescription"), res.getInt("productPrice"), res.getInt("productQuantityInStock"), res.getString("productStatus"), res.getString("productPhoto"), res.getInt("category_id_category"), res.getInt("manufacture_id_manufacture"), res.getInt("model_cars_id_model")));
         return product;
     }
 
+    public ArrayList<String> getCategoryMain() throws SQLException, ClassNotFoundException {
+        String sql = "SELECT * FROM category ORDER BY `id_category`";
+
+        Statement statement = getDbConnection().createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        ArrayList<String> address = new ArrayList<>();
+        while(resultSet.next())
+            address.add(resultSet.getString("name"));
+
+        return address;
+    }
+    public ArrayList<String> getManufactureMain() throws SQLException, ClassNotFoundException {
+        String sql = "SELECT * FROM manufacture ORDER BY `id_manufacture`";
+
+        Statement statement = getDbConnection().createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        ArrayList<String> address = new ArrayList<>();
+        while(resultSet.next())
+            address.add(resultSet.getString("name"));
+
+        return address;
+    }
+    public ArrayList<String> getStatusMain() throws SQLException, ClassNotFoundException {
+        String sql = "SELECT * FROM product ORDER BY `id_product`";
+
+        Statement statement = getDbConnection().createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        ArrayList<String> address = new ArrayList<>();
+        while(resultSet.next())
+            address.add(resultSet.getString("productStatus"));
+
+        return address;
+    }
+    public ArrayList<String> getPoint() throws SQLException, ClassNotFoundException {
+        String sql = "SELECT * FROM point ORDER BY `id_point`";
+
+        Statement statement = getDbConnection().createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        ArrayList<String> address = new ArrayList<>();
+        while(resultSet.next())
+            address.add(resultSet.getString("address"));
+
+        return address;
+    }
+
+    public ArrayList<String> getClient() throws SQLException, ClassNotFoundException {
+        String sql = "SELECT * FROM clients ORDER BY `id_clients`";
+
+        Statement statement = getDbConnection().createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        ArrayList<String> address = new ArrayList<>();
+        while(resultSet.next())
+            address.add(resultSet.getString("fio"));
+
+        return address;
+    }
+
+    public ArrayList<String> getProductMain() throws SQLException, ClassNotFoundException {
+        String sql = "SELECT * FROM product ORDER BY `id_product`";
+
+        Statement statement = getDbConnection().createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        ArrayList<String> address = new ArrayList<>();
+        while(resultSet.next())
+            address.add(resultSet.getString("productName"));
+
+        return address;
+    }
     public ArrayList<Integer> getCategory(String category) throws SQLException, ClassNotFoundException {
         String sql = "select id_product FROM product join category on product.category_id_category=category.id_category where category.name = ?";
         PreparedStatement statement = getDbConnection().prepareStatement(sql);
@@ -225,9 +280,41 @@ public class Database {
         ResultSet res = statement.executeQuery();
         ArrayList<ProductData> product = new ArrayList<>();
 
-        while(res.next())
-            product.add(new ProductData(res.getString("productName"), res.getString("productDescription"), res.getInt("productPrice"), res.getInt("productQuantityInStock"), res.getString("productStatus"), res.getInt("category_id_category"), res.getInt("manufacture_id_manufacture"), res.getInt("model_cars_id_model")));
+        while (res.next())
+            product.add(new ProductData(res.getString("productName"), res.getString("productDescription"), res.getInt("productPrice"), res.getInt("productQuantityInStock"), res.getString("productStatus"), res.getString("productPhoto"), res.getInt("category_id_category"), res.getInt("manufacture_id_manufacture"), res.getInt("model_cars_id_model")));
         return product;
     }
+    public String getNameProduct(int id) throws SQLException, ClassNotFoundException {
+        String sql = "SELECT productName FROM product where id_product='" + id + "'";
+        PreparedStatement statement = getDbConnection().prepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery();
+        String name = "";
+        while (resultSet.next()) {
+            name = resultSet.getString("productName");
+        }
+        return name;
+    }
+    public int getIdProduct(String name) throws SQLException, ClassNotFoundException {
+        String sql = "SELECT id_product FROM product WHERE productName = '" + name + "'";
 
+        Statement statement = getDbConnection().createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        int t = 0;
+        while(resultSet.next()) {
+            t = resultSet.getInt("id_product");
+        }
+        return t;
+    }
+
+    public Integer getPriceMain(String name) throws SQLException, ClassNotFoundException {
+        String sql = "SELECT productPrice FROM product  WHERE productName = '" + name + "'";
+        PreparedStatement statement = getDbConnection().prepareStatement(sql);
+        ResultSet res = statement.executeQuery();
+        price = 0;
+        while (res.next()) {
+            price = res.getInt(1);
+        }
+        return price;
+    }
 }

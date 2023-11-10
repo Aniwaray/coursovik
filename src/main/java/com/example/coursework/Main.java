@@ -8,7 +8,7 @@ import java.io.IOException;
 
 
 public class Main extends Application {
-    
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(com.example.coursework.Main.class.getResource("homePage.fxml"));
@@ -21,4 +21,3 @@ public class Main extends Application {
         launch();
     }
 }
-

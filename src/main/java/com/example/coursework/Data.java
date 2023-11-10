@@ -19,13 +19,12 @@ public class Data extends ListCell<ProductData> {
     AnchorPane anchorPane;
 
     @FXML
-    ImageView imageView1, imageView2, imageView3;
+    ImageView imageView;
 
     @FXML
     Label labelCategory, labelDescription, labelManufacturer, labelName, labelPrice, labelStock;
 
     private FXMLLoader mLLoader;
-    Database database = new Database();
 
     @Override
     protected void updateItem(ProductData productData, boolean empty) {
@@ -55,14 +54,11 @@ public class Data extends ListCell<ProductData> {
             }
 
             try {
-                File file = new File(String.valueOf(database.getPhoto(Account.model)));
+                File file = new File(productData.getPhoto());
                 String urlImage = file.toURI().toURL().toString();
                 Image image = new Image(urlImage);
-                System.out.println(image);
-                imageView1.setImage(image);
-                imageView2.setImage(image);
-                imageView3.setImage(image);
-            } catch (SQLException | ClassNotFoundException | MalformedURLException e) {
+                imageView.setImage(image);
+            } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             }
             setText(null);
