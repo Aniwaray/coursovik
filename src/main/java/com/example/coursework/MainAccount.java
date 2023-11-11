@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -18,7 +19,7 @@ import java.util.List;
 public class MainAccount {
 
     @FXML
-    ImageView imageHome, imageAudi, imageKia, imageMitsubishi, imageClear;
+    ImageView imageHome, imageAudi, imageKia, imageMitsubishi, imageClear, imageSearch;
 
     @FXML
     TextField textSearch;
@@ -31,10 +32,12 @@ public class MainAccount {
 
     @FXML
     ListView<ProductData> listView;
+
     @FXML
-    private Button createOrder;
+    private Button createOrder, buttonAddProduct;
 
     public static int model;
+    static String id_product;
 
     Database database = new Database();
 
@@ -44,7 +47,7 @@ public class MainAccount {
         stage.close();
     }
 
-    private void search() {
+    private void search(){
         textSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             String filter = newValue.toLowerCase();
 
@@ -70,12 +73,13 @@ public class MainAccount {
 
         createOrder.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
             try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("order.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 833, 538);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.show();
-            }catch (IOException e) {
+                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("order.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 833, 538);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+                stage.getIcons().add(new Image("C:/Users/Anna/IdeaProjects/coursework/logo.png"));
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
@@ -87,6 +91,7 @@ public class MainAccount {
                 Stage stage = new Stage();
                 stage.setScene(scene);
                 stage.show();
+                stage.getIcons().add(new Image("C:/Users/Anna/IdeaProjects/coursework/logo.png"));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -98,6 +103,7 @@ public class MainAccount {
             try {
                 List<ProductData> ls = database.getProduct();
                 listView.getItems().addAll(ls);
+                openContextMenu();
             } catch (SQLException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -110,6 +116,7 @@ public class MainAccount {
             try {
                 List<ProductData> ls = database.getProductModel(model);
                 listView.getItems().addAll(ls);
+                openContextMenu();
             } catch (SQLException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -121,6 +128,7 @@ public class MainAccount {
             try {
                 List<ProductData> ls = database.getProductModel(model);
                 listView.getItems().addAll(ls);
+                openContextMenu();
             } catch (SQLException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -132,6 +140,7 @@ public class MainAccount {
             try {
                 List<ProductData> ls = database.getProductModel(model);
                 listView.getItems().addAll(ls);
+                openContextMenu();
             } catch (SQLException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -179,7 +188,7 @@ public class MainAccount {
                 } catch (SQLException | ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
-            }
+            } openContextMenu();
         });
 
         List<ProductData> ls = database.getProduct();
@@ -187,10 +196,53 @@ public class MainAccount {
         listView.setCellFactory(stringListView -> {
             ListCell<ProductData> cell = new Data();
             cell.setContextMenu(null);
+            openContextMenu();
             return cell;
         });
     }
 
+    public void openContextMenu() {
+
+        listView.setCellFactory(stringListView -> {
+            ListCell<ProductData> cell = new Data();
+            ContextMenu contextMenu = new ContextMenu();
+            MenuItem editItem = new MenuItem("Редактировать");
+            editItem.setOnAction(event -> {
+                ProductData item = cell.getItem();
+                try {
+                    id_product = String.valueOf(database.getIdProduct(item.getName()));
+                    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("productEdit.fxml"));
+                    Stage stage = new Stage();
+                    Scene scene = new Scene(fxmlLoader.load(), 524, 597);
+                    stage.setScene(scene);
+                    stage.show();
+                    stage.getIcons().add(new Image("C:/Users/Anna/IdeaProjects/coursework/logo.png"));
+                } catch (SQLException | ClassNotFoundException | IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            MenuItem editItemD = new MenuItem("Удалить");
+            editItemD.setOnAction(event -> {
+                ProductData item = cell.getItem();
+                try {
+                    id_product = String.valueOf(database.getIdProduct(item.getName()));
+                    //database.deleteProduct(id_product);
+                    System.out.println("Данные удалены.");
+                } catch (SQLException | ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            contextMenu.getItems().addAll(editItem, editItemD);
+            cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> {
+                if (isNowEmpty) {
+                    cell.setContextMenu(null);
+                } else {
+                    cell.setContextMenu(contextMenu);
+                }
+            });
+            return cell;
+        });
+    }
     public void Home(MouseEvent mouseEvent) throws SQLException, ClassNotFoundException {
 
         //вывели по категории

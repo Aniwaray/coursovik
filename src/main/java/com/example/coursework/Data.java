@@ -17,13 +17,11 @@ import java.sql.SQLException;
 public class Data extends ListCell<ProductData> {
     @FXML
     AnchorPane anchorPane;
-
     @FXML
     ImageView imageView;
-
     @FXML
     Label labelCategory, labelDescription, labelManufacturer, labelName, labelPrice, labelStock;
-
+    Database database = new Database();
     private FXMLLoader mLLoader;
 
     @Override
@@ -68,8 +66,12 @@ public class Data extends ListCell<ProductData> {
             labelDescription.setText(productData.getDescription());
             labelPrice.setText(String.valueOf(productData.getPrice()));
             labelStock.setText(String.valueOf(productData.getStock()));
-            labelCategory.setText(String.valueOf(productData.getCategory()));
-            labelManufacturer.setText(String.valueOf(productData.getManufacture()));
+            try {
+                labelCategory.setText(String.valueOf(database.getCategoryString(productData.getCategory())));
+                labelManufacturer.setText(String.valueOf(database.getManufactureString(productData.getManufacture())));
+            } catch (SQLException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
 
         }
     }

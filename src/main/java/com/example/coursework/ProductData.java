@@ -1,6 +1,5 @@
 package com.example.coursework;
 
-
 public class ProductData {
     private String name, description, status, photo;
     private Integer price, stock, category, manufacture, model;
@@ -33,7 +32,4 @@ public class ProductData {
     public  Integer getManufacture(){return this.manufacture;}
     public  Integer getModel(){return this.model;}
 
-    public void setName(String name) {
-        this.name = name;
-    }
 }

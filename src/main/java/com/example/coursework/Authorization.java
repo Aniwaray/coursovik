@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -75,7 +76,7 @@ public class Authorization {
                         m = database.getStaff(textLogin.getText(), textPasswordSee.getText());
                         n1 = database.getClients(textLogin.getText(), textPassword.getText());
                         m1 = database.getClients(textLogin.getText(), textPasswordSee.getText());
-                        if (n != 0 || m != 0 || n1!=0 || m1!=0) {
+                        if (n != 0 || m != 0 || n1 != 0 || m1 != 0) {
                             System.out.println("Авторизация прошла успешно.");
                             close();
 
@@ -87,19 +88,21 @@ public class Authorization {
                                 Stage stage = new Stage();
                                 stage.setScene(scene);
                                 stage.show();
+                                stage.getIcons().add(new Image("C:/Users/Anna/IdeaProjects/coursework/logo.png"));
 
                                 MainAccount mainAccount = fxmlLoader.getController();
                                 fio = database.getFioStaff(textLogin.getText());
                                 mainAccount.labelFio.setText(fio);
                                 role = String.valueOf(database.getRole(textLogin.getText()));
                                 mainAccount.labelRole.setText(role);
-                            } else{
+                            } else {
 
                                 FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("account.fxml"));
                                 Scene scene = new Scene(fxmlLoader.load(), 1093, 716);
                                 Stage stage = new Stage();
                                 stage.setScene(scene);
                                 stage.show();
+                                stage.getIcons().add(new Image("C:/Users/Anna/IdeaProjects/coursework/logo.png"));
 
                                 Account account = fxmlLoader.getController();
                                 fio = database.getFioClient(textLogin.getText());
@@ -114,6 +117,7 @@ public class Authorization {
                             stage.setScene(scene);
                             stage.initModality(Modality.APPLICATION_MODAL);
                             stage.show();
+                            stage.getIcons().add(new Image("C:/Users/Anna/IdeaProjects/coursework/logo.png"));
                         }
                     }
 
@@ -128,11 +132,12 @@ public class Authorization {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 try {
-                        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("registration.fxml"));
-                        Scene scene = new Scene(fxmlLoader.load(), 375, 448);
-                        Stage stage = new Stage();
-                        stage.setScene(scene);
-                        stage.show();
+                    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("registration.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load(), 375, 448);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.show();
+                    stage.getIcons().add(new Image("C:/Users/Anna/IdeaProjects/coursework/logo.png"));
 
                 } catch (Exception e) {
                     e.printStackTrace();

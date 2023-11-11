@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -33,6 +34,7 @@ public class HomePage {
                     Stage stage = new Stage();
                     stage.setScene(scene);
                     stage.show();
+                    stage.getIcons().add(new Image("C:/Users/Anna/IdeaProjects/coursework/logo.png"));
                     close();
                 }catch (Exception e) {
                     e.printStackTrace();

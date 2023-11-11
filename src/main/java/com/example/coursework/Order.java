@@ -7,6 +7,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class Order {
     @FXML
     private ListView<String> listCount, listPrice, listProduct;
 
-    int id_product, num, price = 0;
+    double finalPrice, newPrice, price = 0;
 
     Database database = new Database();
 
@@ -51,23 +52,47 @@ public class Order {
         buttonCreateOrder.setDisable(true);
 
         buttonAddOrder.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-
             if (comboClient.getValue() == null || comboPoint.getValue() == null || comboProduct.getValue() == null
                     || countProduct.getText() == null) {
                 System.out.println("Заполните все данные.");
             } else {
+                buttonCreateOrder.setDisable(false);
                 try {
-                    buttonCreateOrder.setDisable(false);
-                    List<String> l = Collections.singletonList(comboProduct.getValue());
-                    listProduct.getItems().addAll(l);
-
-                    List<String> ls = database.getPrice(comboProduct.getValue());
-                    listPrice.getItems().addAll(ls);
-
-                    List<String> lss = Collections.singletonList(countProduct.getText());
-                    listCount.getItems().addAll(lss);
-                }catch (SQLException | ClassNotFoundException e) {
+                    price = database.getPriceInt(comboProduct.getValue());
+                    labelPrice.setText(String.valueOf(price));
+                } catch (SQLException | ClassNotFoundException e) {
                     throw new RuntimeException(e);
+                }
+                for (int i = 0; i < listProduct.getItems().size(); i++) {
+                    if (listProduct.getItems().get(i).equals(comboProduct.getValue())) {
+                        int newCount = Integer.parseInt(listCount.getItems().get(i)) + Integer.parseInt(countProduct.getText());
+                        listCount.getItems().set(i, String.valueOf(newCount));
+                        newPrice = Double.parseDouble(String.valueOf(price * newCount));
+                        listPrice.getItems().set(i, String.valueOf(newPrice));
+                        labelPrice.setText(String.valueOf(newPrice));
+
+                        finalPrice = 0;
+                        for (int j = 0; j < listPrice.getItems().size(); j++) {
+                            finalPrice += Double.parseDouble(listPrice.getItems().get(j));
+                            labelPrice.setText(String.valueOf(finalPrice));
+                        }
+                        return;
+                        // выходим из цикла, так как товар найден и обновлен
+                    }
+                }
+                // Если товар не был найден в списке, добавляем новый элемент
+                listProduct.getItems().add(comboProduct.getValue());
+                listCount.getItems().add(countProduct.getText());
+                try {
+                    List<String> ls = database.getPrice(comboProduct.getValue(), countProduct.getText());
+                    listPrice.getItems().addAll(ls);
+                } catch (SQLException | ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                finalPrice = 0;
+                for (int i = 0; i < listPrice.getItems().size(); i++) {
+                    finalPrice += Double.parseDouble(listPrice.getItems().get(i));
+                    labelPrice.setText(String.valueOf(finalPrice));
                 }
             }
         });
