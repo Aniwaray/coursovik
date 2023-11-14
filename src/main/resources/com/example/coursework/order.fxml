@@ -16,8 +16,8 @@
             <Font name="Comic Sans MS" size="23.0" />
          </font>
       </Label>
-      <ComboBox fx:id="comboProduct" layoutX="143.0" layoutY="179.0" prefWidth="150.0" promptText="Выберите продукт" />
-      <TextField fx:id="countProduct" layoutX="184.0" layoutY="242.0" prefHeight="26.0" prefWidth="68.0" promptText="Кол-во" />
+      <ComboBox fx:id="comboProduct" layoutX="143.0" layoutY="179.0" prefWidth="150.0" promptText="Выберите продукт" style="-fx-background-color: white; -fx-border-color: black;" />
+      <TextField fx:id="countProduct" layoutX="184.0" layoutY="242.0" prefHeight="26.0" prefWidth="68.0" promptText="Кол-во" style="-fx-border-color: black;" />
       <Label layoutX="443.0" layoutY="482.0" text="Цена заказа:">
          <font>
             <Font name="System Bold" size="16.0" />
@@ -28,13 +28,13 @@
             <Font name="Comic Sans MS Bold" size="13.0" />
          </font>
       </Label>
-      <Button fx:id="buttonAddOrder" layoutX="155.0" layoutY="429.0" mnemonicParsing="false" text="Добавить в заказ">
+      <Button fx:id="buttonAddOrder" layoutX="155.0" layoutY="429.0" mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: black;" text="Добавить в заказ">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <ComboBox fx:id="comboPoint" layoutX="130.0" layoutY="308.0" prefHeight="26.0" prefWidth="178.0" promptText="Выберите пункт выдачи" />
-      <ComboBox fx:id="comboClient" layoutX="144.0" layoutY="113.0" prefWidth="150.0" promptText="Выберите клиента" />
+      <ComboBox fx:id="comboPoint" layoutX="130.0" layoutY="308.0" prefHeight="26.0" prefWidth="178.0" promptText="Выберите пункт выдачи" style="-fx-background-color: white; -fx-border-color: black;" />
+      <ComboBox fx:id="comboClient" layoutX="144.0" layoutY="113.0" prefWidth="150.0" promptText="Выберите клиента" style="-fx-background-color: white; -fx-border-color: black;" />
       <HBox layoutX="388.0" layoutY="113.0" prefHeight="346.0" prefWidth="366.0">
          <children>
             <ListView fx:id="listProduct" prefHeight="346.0" prefWidth="254.0" />
@@ -57,7 +57,7 @@
             <Font name="Comic Sans MS Bold" size="12.0" />
          </font>
       </Label>
-      <Button fx:id="buttonCreateOrder" layoutX="679.0" layoutY="481.0" mnemonicParsing="false" text="Оформить">
+      <Button fx:id="buttonCreateOrder" layoutX="679.0" layoutY="481.0" mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: black;" text="Оформить">
          <font>
             <Font size="13.0" />
          </font>

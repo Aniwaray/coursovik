@@ -12,28 +12,28 @@
 
 <AnchorPane prefHeight="597.0" prefWidth="524.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursework.ProductEdit">
     <children>
-        <Button fx:id="buttonEdit" layoutX="178.0" layoutY="529.0" mnemonicParsing="false" style="-fx-background-color: black;" text="Редактировать товар" textFill="WHITE">
+        <Button fx:id="buttonEdit" layoutX="213.0" layoutY="528.0" mnemonicParsing="false" style="-fx-background-color: black;" text="Редактировать" textFill="WHITE">
             <font>
                 <Font name="Comic Sans MS" size="15.0" />
             </font>
         </Button>
-        <TextField fx:id="textName" layoutX="320.0" layoutY="102.0" prefHeight="26.0" prefWidth="156.0" promptText="Название товара" />
-        <TextField fx:id="textStock" layoutX="320.0" layoutY="274.0" prefHeight="26.0" prefWidth="156.0" promptText="Кол-во на складе" />
-        <TextField fx:id="textCost" layoutX="320.0" layoutY="225.0" prefHeight="26.0" prefWidth="156.0" promptText="Цена" />
-        <TextField fx:id="textImage" layoutX="320.0" layoutY="324.0" prefHeight="26.0" prefWidth="156.0" promptText="Фото (png / jpg)" />
+        <TextField fx:id="textName" layoutX="320.0" layoutY="102.0" prefHeight="26.0" prefWidth="156.0" promptText="Название товара" style="-fx-border-color: black;" />
+        <TextField fx:id="textStock" layoutX="320.0" layoutY="274.0" prefHeight="26.0" prefWidth="156.0" promptText="Кол-во на складе" style="-fx-border-color: black;" />
+        <TextField fx:id="textPrice" layoutX="320.0" layoutY="225.0" prefHeight="26.0" prefWidth="156.0" promptText="Цена" style="-fx-border-color: black;" />
+        <TextField fx:id="textImage" layoutX="320.0" layoutY="324.0" prefHeight="26.0" prefWidth="156.0" promptText="Фото (png / jpg)" style="-fx-border-color: black;" />
       <Label layoutX="136.0" layoutY="36.0" text="Редактирование товара">
          <font>
             <Font name="Comic Sans MS Bold" size="22.0" />
          </font>
       </Label>
-      <ComboBox fx:id="comboCategory" layoutX="320.0" layoutY="368.0" prefHeight="26.0" prefWidth="156.0" promptText="Категория" style="-fx-background-color: white;" />
-      <ComboBox fx:id="comboManufacture" layoutX="320.0" layoutY="415.0" prefHeight="26.0" prefWidth="156.0" promptText="Производитель" style="-fx-background-color: white;" />
-      <ComboBox fx:id="comboModel" layoutX="320.0" layoutY="465.0" prefHeight="26.0" prefWidth="156.0" promptText="Модель авто" style="-fx-background-color: white;" />
+      <ComboBox fx:id="comboCategory" layoutX="320.0" layoutY="368.0" prefHeight="26.0" prefWidth="156.0" promptText="Категория" style="-fx-background-color: white; -fx-border-color: black;" />
+      <ComboBox fx:id="comboManufacture" layoutX="320.0" layoutY="415.0" prefHeight="26.0" prefWidth="156.0" promptText="Производитель" style="-fx-background-color: white; -fx-border-color: black;" />
+      <ComboBox fx:id="comboModel" layoutX="320.0" layoutY="465.0" prefHeight="26.0" prefWidth="156.0" promptText="Модель авто" style="-fx-background-color: white; -fx-border-color: black;" />
       <ImageView fitHeight="215.0" fitWidth="222.0" layoutX="60.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../../../../../study/мдк%2011_01%20ТРиЗБД/курсовая/edit.png" />
          </image>
       </ImageView>
-      <TextArea fx:id="textDescription" layoutX="320.0" layoutY="145.0" prefHeight="64.0" prefWidth="156.0" promptText="Описание" />
+      <TextArea fx:id="textDescription" layoutX="320.0" layoutY="145.0" prefHeight="64.0" prefWidth="156.0" promptText="Описание" style="-fx-border-color: black;" />
     </children>
 </AnchorPane>

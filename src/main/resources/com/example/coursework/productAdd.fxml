@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="597.0" prefWidth="524.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursework.ProductAdd">
+    <children>
+        <Button fx:id="buttonAdd" layoutX="231.0" layoutY="530.0" mnemonicParsing="false" style="-fx-background-color: black;" text="Добавить" textFill="WHITE">
+            <font>
+                <Font name="Comic Sans MS" size="15.0" />
+            </font>
+        </Button>
+        <TextField fx:id="textName" layoutX="320.0" layoutY="102.0" prefHeight="26.0" prefWidth="156.0" promptText="Название товара" style="-fx-border-color: black;" />
+        <TextField fx:id="textStock" layoutX="320.0" layoutY="274.0" prefHeight="26.0" prefWidth="156.0" promptText="Кол-во на складе" style="-fx-border-color: black;" />
+        <TextField fx:id="textPrice" layoutX="320.0" layoutY="225.0" prefHeight="26.0" prefWidth="156.0" promptText="Цена" style="-fx-border-color: black;" />
+        <TextField fx:id="textImage" layoutX="320.0" layoutY="324.0" prefHeight="26.0" prefWidth="156.0" promptText="Фото (png / jpg)" style="-fx-border-color: black;" />
+        <Label layoutX="172.0" layoutY="35.0" text="Добавить товара">
+            <font>
+                <Font name="Comic Sans MS Bold" size="22.0" />
+            </font>
+        </Label>
+        <ComboBox fx:id="comboCategory" layoutX="320.0" layoutY="368.0" prefHeight="26.0" prefWidth="156.0" promptText="Категория" style="-fx-background-color: white; -fx-border-color: black;" />
+        <ComboBox fx:id="comboManufacture" layoutX="320.0" layoutY="415.0" prefHeight="26.0" prefWidth="156.0" promptText="Производитель" style="-fx-background-color: white; -fx-border-color: black;" />
+        <ComboBox fx:id="comboModel" layoutX="320.0" layoutY="465.0" prefHeight="26.0" prefWidth="156.0" promptText="Модель авто" style="-fx-background-color: white; -fx-border-color: black;" />
+        <ImageView fitHeight="289.0" fitWidth="241.0" layoutX="42.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../../../../../../../../study/мдк%2011_01%20ТРиЗБД/курсовая/add.png" />
+            </image>
+        </ImageView>
+        <TextArea fx:id="textDescription" layoutX="320.0" layoutY="145.0" prefHeight="64.0" prefWidth="156.0" promptText="Описание" style="-fx-border-color: black;" />
+    </children>
+</AnchorPane>

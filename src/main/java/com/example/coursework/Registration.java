@@ -34,11 +34,11 @@ public class Registration {
                 try {
                     if (!regFio.getText().isEmpty() && !regLogin.getText().isEmpty() && !regPassword.getText().isEmpty() && !regTel.getText().isEmpty()) {
                         database.clientAdd(regFio.getText(), regLogin.getText(), regPassword.getText(), regTel.getText());
-                        System.out.println("Вы зарегистрированны.");
+                        Authorization.showAlert("", "Вы зарегистрированны.");
                         close();
 
                     }else {
-                        System.out.println("Заполните все поля.");
+                        Authorization.showAlertError("Ошибка", "Заполните все поля.");
                     }
                 } catch (SQLException | ClassNotFoundException e) {
                     throw new RuntimeException(e);

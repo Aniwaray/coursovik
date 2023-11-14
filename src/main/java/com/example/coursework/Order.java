@@ -54,9 +54,11 @@ public class Order {
         buttonAddOrder.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
             if (comboClient.getValue() == null || comboPoint.getValue() == null || comboProduct.getValue() == null
                     || countProduct.getText() == null) {
-                System.out.println("Заполните все данные.");
+                Authorization.showAlertError("Ошибка", "Заполните все данные.");
             } else {
+
                 buttonCreateOrder.setDisable(false);
+
                 try {
                     price = database.getPriceInt(comboProduct.getValue());
                     labelPrice.setText(String.valueOf(price));
@@ -96,5 +98,22 @@ public class Order {
                 }
             }
         });
+
+        buttonCreateOrder.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            try {
+                for (int i = 0; i < listCount.getItems().size(); i++) {
+                    int count = Integer.parseInt(listCount.getItems().get(i));
+                    int finalPrice = (int) Double.parseDouble(listPrice.getItems().get(i));
+                    int getPoint = database.getPointForInsert(comboPoint.getValue());
+                    int getProduct = database.getProductForInsert(String.valueOf(comboProduct.getValue()));
+                    int getClient = database.getClientForInsert(String.valueOf(comboClient.getValue()));
+                    database.insertOrder( count,finalPrice, getPoint, getProduct, getClient);
+                    Authorization.showAlert("", "Заказ оформлен.");
+                }
+            } catch (SQLException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
+
 }

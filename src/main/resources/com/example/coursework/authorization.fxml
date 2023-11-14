@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="494.0" prefWidth="409.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursework.Authorization">
-    <TextField fx:id="textLogin" layoutX="130.0" layoutY="171.0" promptText="Логин" />
+    <TextField fx:id="textLogin" layoutX="130.0" layoutY="171.0" promptText="Логин" style="-fx-border-color: black;" />
     <Button fx:id="buttonEnter" layoutX="161.0" layoutY="301.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="82.0" style="-fx-background-color: red;" text="Войти" textFill="WHITE">
       <font>
          <Font name="System Bold" size="12.0" />
@@ -24,7 +24,7 @@
       <font>
          <Font name="System Bold" size="12.0" />
       </font></Button>
-    <PasswordField fx:id="textPassword" layoutX="130.0" layoutY="234.0" promptText="Пароль" />
+    <PasswordField fx:id="textPassword" layoutX="130.0" layoutY="234.0" promptText="Пароль" style="-fx-border-color: black;" />
    <Label layoutX="153.0" layoutY="363.0" text="Нет аккаунта?" textFill="RED">
       <font>
          <Font name="System Bold" size="15.0" />
@@ -36,5 +36,5 @@
       </image>
    </ImageView>
    <Button fx:id="buttonSee" layoutX="291.0" layoutY="234.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="31.0" style="-fx-background-color: white;" text="👀" />
-   <TextField fx:id="textPasswordSee" layoutX="130.0" layoutY="234.0" promptText="Пароль" />
+   <TextField fx:id="textPasswordSee" layoutX="130.0" layoutY="234.0" promptText="Пароль" style="-fx-border-color: black;" />
 </AnchorPane>

@@ -320,8 +320,6 @@ public class Database {
         }
         return id;
     }
-
-
     public int getOneProductPrice(String id) throws SQLException, ClassNotFoundException {
         String sql = "SELECT productPrice FROM product where id_product=?";
         PreparedStatement statement = getDbConnection().prepareStatement(sql);
@@ -381,5 +379,168 @@ public class Database {
         }
         return tasks;
     }
+    public void insertProduct(String name, String desc, Integer price, Integer stock, String stat, String photo, Integer cat, Integer man, Integer mod) throws SQLException, ClassNotFoundException {
+        String sql = "INSERT INTO product VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement prSt = getDbConnection().prepareStatement(sql);
+        prSt.setInt(1, maxProduct());
+        prSt.setString(2, name);
+        prSt.setString(3, desc);
+        prSt.setInt(4, price);
+        prSt.setInt(5, stock);
+        prSt.setString(6, stat);
+        prSt.setString(7, photo);
+        prSt.setInt(8, cat);
+        prSt.setInt(9, man);
+        prSt.setInt(10, mod);
 
+        prSt.executeUpdate();
+    }
+    public Integer maxProduct() throws SQLException, ClassNotFoundException {
+        String sql = "SELECT max(id_product) as max FROM product";
+        PreparedStatement statement = getDbConnection().prepareStatement(sql);
+        ResultSet res = statement.executeQuery();
+        max = 0;
+        while (res.next()) {
+            max = res.getInt(1);
+        }
+        max += 1;
+        return max;
+    }
+    public Integer maxOrder() throws SQLException, ClassNotFoundException {
+        String sql = "SELECT max(id_orders) as max FROM orders";
+        PreparedStatement statement = getDbConnection().prepareStatement(sql);
+        ResultSet res = statement.executeQuery();
+        max = 0;
+        while (res.next()) {
+            max = res.getInt(1);
+        }
+        max += 1;
+        return max;
+    }
+    public Integer getCategoryForInsert(String name) throws SQLException, ClassNotFoundException{
+        String sql = "SELECT id_category FROM category where name = '" + name + "'";
+        PreparedStatement statement = getDbConnection().prepareStatement(sql);
+        ResultSet res = statement.executeQuery();
+        int id_cat = 0;
+        while (res.next()) {
+            id_cat = res.getInt(1);
+        }
+        return id_cat;
+    }
+    public Integer getManufactureForInsert(String name) throws SQLException, ClassNotFoundException{
+        String sql = "SELECT id_manufacture FROM manufacture where name = '" + name + "'";
+        PreparedStatement statement = getDbConnection().prepareStatement(sql);
+        ResultSet res = statement.executeQuery();
+        int id_cat = 0;
+        while (res.next()) {
+            id_cat = res.getInt(1);
+        }
+        return id_cat;
+    }
+    public Integer getModelForInsert(String name) throws SQLException, ClassNotFoundException{
+        String sql = "SELECT id_model FROM model_cars where name = '" + name + "'";
+        PreparedStatement statement = getDbConnection().prepareStatement(sql);
+        ResultSet res = statement.executeQuery();
+        int id_cat = 0;
+        while (res.next()) {
+            id_cat = res.getInt(1);
+        }
+        return id_cat;
+    }
+    public void insertOrder(Integer count, Integer finalPrice, Integer point, Integer product, Integer client) throws SQLException, ClassNotFoundException {
+        String sql = "INSERT INTO orders VALUES (?, current_date, ?, ?, ?, ?, ?)";
+        PreparedStatement prSt = getDbConnection().prepareStatement(sql);
+        prSt.setInt(1, maxOrder());
+        prSt.setInt(2, count);
+        prSt.setInt(3, finalPrice);
+        prSt.setInt(4, point);
+        prSt.setInt(5, product);
+        prSt.setInt(6, client);
+
+        prSt.executeUpdate();
+    }
+    public Integer getPointForInsert(String address) throws SQLException, ClassNotFoundException{
+        String sql = "SELECT id_point FROM point where address = '" + address + "'";
+        PreparedStatement statement = getDbConnection().prepareStatement(sql);
+        ResultSet res = statement.executeQuery();
+        int id_cat = 0;
+        while (res.next()) {
+            id_cat = res.getInt(1);
+        }
+        return id_cat;
+    }
+    public Integer getProductForInsert(String name) throws SQLException, ClassNotFoundException{
+        String sql = "SELECT id_product FROM product where productName = '" + name + "'";
+        PreparedStatement statement = getDbConnection().prepareStatement(sql);
+        ResultSet res = statement.executeQuery();
+        int id_cat = 0;
+        while (res.next()) {
+            id_cat = res.getInt(1);
+        }
+        return id_cat;
+    }
+    public Integer getClientForInsert(String fio) throws SQLException, ClassNotFoundException{
+        String sql = "SELECT id_clients FROM clients where fio = '" + fio + "'";
+        PreparedStatement statement = getDbConnection().prepareStatement(sql);
+        ResultSet res = statement.executeQuery();
+        int id_cat = 0;
+        while (res.next()) {
+            id_cat = res.getInt(1);
+        }
+        return id_cat;
+    }
+    public void deleteProduct(Integer id) throws SQLException, ClassNotFoundException {
+        String sql = "delete from product where id_product = ?";
+        PreparedStatement prSt = getDbConnection().prepareStatement(sql);
+        prSt.setInt(1, id);
+
+        prSt.executeUpdate();
+    }
+    public void updateProduct(String name, String desc, Integer price, Integer stock, String photo, Integer cat, Integer man, Integer mod, Integer idProd) throws SQLException, ClassNotFoundException {
+        String sql = "update product set productName =?, productDescription=?, productPrice =?, productQuantityInStock =?, productPhoto=?, category_id_category =?, manufacture_id_manufacture=?, model_cars_id_model=? where id_product=?";
+        PreparedStatement prSt = getDbConnection().prepareStatement(sql);
+        prSt.setString(1, name);
+        prSt.setString(2, desc);
+        prSt.setInt(3, price);
+        prSt.setInt(4, stock);
+        prSt.setString(5, photo);
+        prSt.setInt(6, cat);
+        prSt.setInt(7, man);
+        prSt.setInt(8, mod);
+        prSt.setInt(9, idProd);
+
+        prSt.executeUpdate();
+    }
+    public Integer maxReviews() throws SQLException, ClassNotFoundException {
+        String sql = "SELECT max(id_reviews) as max FROM reviews";
+        PreparedStatement statement = getDbConnection().prepareStatement(sql);
+        ResultSet res = statement.executeQuery();
+        max = 0;
+        while (res.next()) {
+            max = res.getInt(1);
+        }
+        max += 1;
+        return max;
+    }
+    public void insertReviews(String rating, String comment, Integer client, Integer product) throws SQLException, ClassNotFoundException {
+        String sql = "INSERT INTO reviews VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement prSt = getDbConnection().prepareStatement(sql);
+        prSt.setInt(1, maxReviews());
+        prSt.setString(2, rating);
+        prSt.setString(3, comment);
+        prSt.setInt(4, client);
+        prSt.setInt(5, product);
+
+        prSt.executeUpdate();
+    }
+    public Integer getClientForReview(String log) throws SQLException, ClassNotFoundException{
+        String sql = "SELECT id_clients FROM clients where login = '" + log + "'";
+        PreparedStatement statement = getDbConnection().prepareStatement(sql);
+        ResultSet res = statement.executeQuery();
+        int id_client = 0;
+        while (res.next()) {
+            id_client = res.getInt(1);
+        }
+        return id_client;
+    }
 }

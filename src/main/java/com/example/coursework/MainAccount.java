@@ -34,7 +34,7 @@ public class MainAccount {
     ListView<ProductData> listView;
 
     @FXML
-    private Button createOrder, buttonAddProduct;
+    private Button createOrder, buttonAddProduct, buttonUpdate;
 
     public static int model;
     static String id_product;
@@ -47,7 +47,7 @@ public class MainAccount {
         stage.close();
     }
 
-    private void search(){
+    private void search() {
         textSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             String filter = newValue.toLowerCase();
 
@@ -75,6 +75,19 @@ public class MainAccount {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("order.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 833, 538);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+                stage.getIcons().add(new Image("C:/Users/Anna/IdeaProjects/coursework/logo.png"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        buttonAddProduct.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("productAdd.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 524, 597);
                 Stage stage = new Stage();
                 stage.setScene(scene);
                 stage.show();
@@ -149,6 +162,16 @@ public class MainAccount {
 
     void loadInfo() throws SQLException, ClassNotFoundException {
 
+        buttonUpdate.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            listView.getItems().clear();
+            try {
+                List<ProductData> ls = database.getProduct();
+                listView.getItems().addAll(ls);
+            } catch (SQLException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         List<String> cat = database.getCategoryMain();
         comboCategory.setItems(FXCollections.observableArrayList(cat));
 
@@ -188,7 +211,8 @@ public class MainAccount {
                 } catch (SQLException | ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
-            } openContextMenu();
+            }
+            openContextMenu();
         });
 
         List<ProductData> ls = database.getProduct();
@@ -226,8 +250,8 @@ public class MainAccount {
                 ProductData item = cell.getItem();
                 try {
                     id_product = String.valueOf(database.getIdProduct(item.getName()));
-                    //database.deleteProduct(id_product);
-                    System.out.println("Данные удалены.");
+                    database.deleteProduct(Integer.valueOf(id_product));
+                    Authorization.showAlert("", "Данные удалены. Обновите.");
                 } catch (SQLException | ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
@@ -243,6 +267,7 @@ public class MainAccount {
             return cell;
         });
     }
+
     public void Home(MouseEvent mouseEvent) throws SQLException, ClassNotFoundException {
 
         //вывели по категории

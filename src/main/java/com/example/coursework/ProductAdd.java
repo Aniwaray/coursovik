@@ -3,20 +3,18 @@ package com.example.coursework;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-import java.io.File;
-import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ProductEdit extends ListCell<ProductData> {
-
+public class ProductAdd {
     @FXML
-    private Button buttonEdit;
+    private Button buttonAdd;
 
     @FXML
     private ComboBox<String> comboCategory, comboManufacture, comboModel;
@@ -27,17 +25,11 @@ public class ProductEdit extends ListCell<ProductData> {
     @FXML
     private TextArea textDescription;
 
-    String getStatusForEdit, getImageForEdit;
+    String getStatusForAdd, getImageForAdd;
     Database database = new Database();
 
     @FXML
     void initialize() throws SQLException, ClassNotFoundException {
-
-        textName.setText(database.getOneProductName(MainAccount.id_product));
-        textPrice.setText(String.valueOf(database.getOneProductPrice(MainAccount.id_product)));
-        textStock.setText(String.valueOf(database.getOneProductQuantityInStock(MainAccount.id_product)));
-        textDescription.setText(database.getOneProductDescription(MainAccount.id_product));
-        textImage.setText(database.getOneProductPhoto(MainAccount.id_product));
 
         List<String> cat = database.getCategoryMain();
         comboCategory.setItems(FXCollections.observableArrayList(cat));
@@ -53,7 +45,7 @@ public class ProductEdit extends ListCell<ProductData> {
 
     void loadInfo() {
         try {
-            buttonEdit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            buttonAdd.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     try {
@@ -62,17 +54,18 @@ public class ProductEdit extends ListCell<ProductData> {
                                 && comboManufacture.getValue() != null && comboModel.getValue() != null
                                 && (Integer.parseInt(textPrice.getText()) > 0) && Integer.parseInt(textStock.getText()) >= 0) {
                             if (textImage.getText().isEmpty()) {
-                                getImageForEdit = "no.jpg";
-                            } else getImageForEdit = textImage.getText();
+                                getImageForAdd = "no.jpg";
+                            } else getImageForAdd = textImage.getText();
                             if (Integer.parseInt(textStock.getText()) == 0) {
-                                getStatusForEdit = "Отсутствует";
-                            } else getStatusForEdit = "Присутствует";
+                                getStatusForAdd = "Отсутствует";
+                            } else getStatusForAdd = "Присутствует";
 
-                            database.updateProduct(textName.getText(),  textDescription.getText(),Integer.parseInt(textPrice.getText()),
-                                    Integer.parseInt(textStock.getText()), textImage.getText(), database.getCategoryForInsert(comboCategory.getValue()),
-                                    database.getManufactureForInsert(comboManufacture.getValue()), database.getModelForInsert(comboModel.getValue()),
-                                    Integer.parseInt(MainAccount.id_product));
-                            Authorization.showAlert("", "Данные отредактированны. Обновите.");
+                            database.insertProduct(textName.getText(), textDescription.getText(),
+                                    Integer.parseInt(textPrice.getText()), Integer.parseInt(textStock.getText()),
+                                    getStatusForAdd, getImageForAdd, database.getCategoryForInsert(comboCategory.getValue()),
+                                    database.getManufactureForInsert(comboManufacture.getValue()),
+                                    database.getModelForInsert(comboModel.getValue()));
+                            Authorization.showAlert("", "Данные добавлены. Обновите.");
                         } else {
                             Authorization.showAlertError("Ошибка", "Заполните все поля или проверьте корректность данных.");
                         }
@@ -85,4 +78,6 @@ public class ProductEdit extends ListCell<ProductData> {
             throw new RuntimeException(e);
         }
     }
+
 }
+

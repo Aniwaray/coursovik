@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -25,6 +26,9 @@ public class Account {
 
     @FXML
     Label labelFio, labelRole;
+
+    @FXML
+    Button createReview;
 
     @FXML
     private ComboBox<String> comboCategory, comboManufacture, comboStatus;
@@ -66,6 +70,19 @@ public class Account {
         loadInfo();
         search();
 
+        createReview.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("review.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 530, 358);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+                stage.getIcons().add(new Image("C:/Users/Anna/IdeaProjects/coursework/logo.png"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         imageHome.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("authorization.fxml"));
@@ -73,6 +90,7 @@ public class Account {
                 Stage stage = new Stage();
                 stage.setScene(scene);
                 stage.show();
+                stage.getIcons().add(new Image("C:/Users/Anna/IdeaProjects/coursework/logo.png"));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

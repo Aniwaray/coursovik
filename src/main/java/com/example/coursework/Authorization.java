@@ -4,6 +4,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -26,9 +27,28 @@ public class Authorization {
 
     int k;
     String fio, role;
+    static int id_client;
 
     Database database = new Database();
 
+    public static void showAlertError(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("C:/Users/Anna/IdeaProjects/coursework/logo.png"));
+        alert.showAndWait();
+    }
+    public static void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("C:/Users/Anna/IdeaProjects/coursework/logo.png"));
+        alert.showAndWait();
+    }
     @FXML
     public void close() {
         Stage stage = (Stage) buttonEnter.getScene().getWindow();
@@ -66,7 +86,6 @@ public class Authorization {
         });
 
         buttonEnter.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-
             @Override
             public void handle(MouseEvent mouseEvent) {
                 try {
@@ -77,7 +96,8 @@ public class Authorization {
                         n1 = database.getClients(textLogin.getText(), textPassword.getText());
                         m1 = database.getClients(textLogin.getText(), textPasswordSee.getText());
                         if (n != 0 || m != 0 || n1 != 0 || m1 != 0) {
-                            System.out.println("Авторизация прошла успешно.");
+                            showAlert("","Авторизация прошла успешно.");
+                            id_client = database.getClientForReview(textLogin.getText());
                             close();
 
                             if (Objects.equals(database.getRole(textLogin.getText()), "Сотрудник")
@@ -110,7 +130,7 @@ public class Authorization {
                                 account.labelRole.setText("Клиент");
                             }
                         } else {
-                            System.out.println("Произошла ошибка при входе в личный кабинет.");
+                            showAlertError("Ошибка","Произошла ошибка при входе в личный кабинет.");
                             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("captcha.fxml"));
                             Scene scene = new Scene(fxmlLoader.load(), 300, 200);
                             Stage stage = new Stage();
@@ -119,8 +139,7 @@ public class Authorization {
                             stage.show();
                             stage.getIcons().add(new Image("C:/Users/Anna/IdeaProjects/coursework/logo.png"));
                         }
-                    }
-
+                    }else showAlertError("Ошибка","Заполните все поля.");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

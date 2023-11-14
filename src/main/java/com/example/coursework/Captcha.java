@@ -45,11 +45,11 @@ public class Captcha {
             public void handle(MouseEvent mouseEvent) {
                 try {
                     if(CaptchaGenerator.text.equals(textInputField.getText())){
-                        System.out.println("Проверка пройдена");
+                        Authorization.showAlert("", "Проверка пройдена.");
                         Stage stage = (Stage) textInputField.getScene().getWindow();
                         stage.close();
                     }else {
-                        System.out.println("Проверка не пройдена. Попробуйте ещё раз.");
+                        Authorization.showAlertError("Ошибка", "Проверка не пройдена. Попробуйте ещё раз.");
                         Stage stage = (Stage) textInputField.getScene().getWindow();
                         stage.close();
                     }
