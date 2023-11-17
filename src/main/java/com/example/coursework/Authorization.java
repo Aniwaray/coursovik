@@ -89,7 +89,7 @@ public class Authorization {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 try {
-                    if (!textLogin.getText().trim().equals("") && !textPassword.getText().trim().equals("")) {
+                    if (!textLogin.getText().trim().isEmpty() && !textPassword.getText().trim().isEmpty()) {
                         int n, n1, m, m1;
                         n = database.getStaff(textLogin.getText(), textPassword.getText());
                         m = database.getStaff(textLogin.getText(), textPasswordSee.getText());
@@ -118,7 +118,7 @@ public class Authorization {
                             } else {
 
                                 FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("account.fxml"));
-                                Scene scene = new Scene(fxmlLoader.load(), 1093, 716);
+                                Scene scene = new Scene(fxmlLoader.load(), 1093, 826);
                                 Stage stage = new Stage();
                                 stage.setScene(scene);
                                 stage.show();

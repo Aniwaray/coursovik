@@ -20,9 +20,9 @@
             <Font name="Comic Sans MS Bold" size="21.0" />
         </font>
     </Label>
-    <Button fx:id="buttonRegistration" layoutX="135.0" layoutY="404.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" style="-fx-background-color: red;" text="Зарегистрироваться" textFill="#fff6f6">
+    <Button fx:id="buttonRegistration" layoutX="135.0" layoutY="404.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="151.0" style="-fx-background-color: red;" text="Зарегистрироваться" textFill="#fff6f6">
       <font>
-         <Font name="System Bold" size="12.0" />
+         <Font name="System Bold" size="13.0" />
       </font></Button>
     <PasswordField fx:id="textPassword" layoutX="130.0" layoutY="234.0" promptText="Пароль" style="-fx-border-color: black;" />
    <Label layoutX="153.0" layoutY="363.0" text="Нет аккаунта?" textFill="RED">

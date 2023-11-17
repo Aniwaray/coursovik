@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="738.0" prefWidth="1093.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursework.Account">
+<AnchorPane prefHeight="826.0" prefWidth="1093.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursework.Account">
     <children>
         <Label fx:id="labelRole" layoutX="875.0" layoutY="17.0" prefHeight="36.0" prefWidth="147.0">
             <font>
@@ -61,15 +61,15 @@
             <Font name="Comic Sans MS" size="15.0" />
          </font>
       </Label>
-      <ListView fx:id="listView" layoutX="56.0" layoutY="379.0" prefHeight="322.0" prefWidth="798.0" />
-      <ComboBox fx:id="comboManufacture" layoutX="881.0" layoutY="455.0" prefHeight="26.0" prefWidth="174.0" promptText="Поставщики" style="-fx-border-color: black; -fx-background-color: white;" />
-      <ComboBox fx:id="comboCategory" layoutX="881.0" layoutY="526.0" prefHeight="26.0" prefWidth="174.0" promptText="Категория" style="-fx-background-color: white; -fx-border-color: black;" />
-      <ComboBox fx:id="comboStatus" layoutX="881.0" layoutY="591.0" prefHeight="26.0" prefWidth="174.0" promptText="Статус" style="-fx-background-color: white; -fx-border-color: black;" />
-      <TextField fx:id="textSearch" layoutX="881.0" layoutY="379.0" prefHeight="27.0" prefWidth="174.0" promptText="Найти" style="-fx-border-color: black;">
+      <ListView fx:id="listView" layoutX="55.0" layoutY="388.0" prefHeight="372.0" prefWidth="798.0" />
+      <ComboBox fx:id="comboManufacture" layoutX="881.0" layoutY="388.0" prefHeight="26.0" prefWidth="174.0" promptText="Поставщики" style="-fx-border-color: black; -fx-background-color: white;" />
+      <ComboBox fx:id="comboCategory" layoutX="881.0" layoutY="589.0" prefHeight="26.0" prefWidth="174.0" promptText="Категория" style="-fx-background-color: white; -fx-border-color: black;" />
+      <ComboBox fx:id="comboStatus" layoutX="881.0" layoutY="657.0" prefHeight="26.0" prefWidth="174.0" promptText="Статус" style="-fx-background-color: white; -fx-border-color: black;" />
+      <TextField fx:id="textSearch" layoutX="881.0" layoutY="474.0" prefHeight="27.0" prefWidth="174.0" promptText="Найти" style="-fx-border-color: black;">
          <font>
             <Font name="Comic Sans MS Bold" size="12.0" />
          </font></TextField>
-      <ImageView fx:id="imageSearch" fitHeight="51.0" fitWidth="81.0" layoutX="949.0" layoutY="650.0" onMouseClicked="#Home" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imageSearch" fitHeight="51.0" fitWidth="81.0" layoutX="943.0" layoutY="709.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../../../../../study/мдк%2011_01%20ТРиЗБД/курсовая/lupa.png" />
          </image>

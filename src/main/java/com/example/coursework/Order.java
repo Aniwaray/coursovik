@@ -53,8 +53,8 @@ public class Order {
 
         buttonAddOrder.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
             if (comboClient.getValue() == null || comboPoint.getValue() == null || comboProduct.getValue() == null
-                    || countProduct.getText() == null) {
-                Authorization.showAlertError("Ошибка", "Заполните все данные.");
+                    || countProduct.getText() == null || Integer.parseInt(countProduct.getText()) <= 0) {
+                Authorization.showAlertError("Ошибка", "Заполните данные корректно.");
             } else {
 
                 buttonCreateOrder.setDisable(false);
@@ -105,15 +105,19 @@ public class Order {
                     int count = Integer.parseInt(listCount.getItems().get(i));
                     int finalPrice = (int) Double.parseDouble(listPrice.getItems().get(i));
                     int getPoint = database.getPointForInsert(comboPoint.getValue());
-                    int getProduct = database.getProductForInsert(String.valueOf(comboProduct.getValue()));
+                    int getProduct = database.getProductForInsert(String.valueOf(listProduct.getItems().get(i)));
                     int getClient = database.getClientForInsert(String.valueOf(comboClient.getValue()));
-                    database.insertOrder( count,finalPrice, getPoint, getProduct, getClient);
-                    Authorization.showAlert("", "Заказ оформлен.");
+                    database.insertOrder(count, finalPrice, getPoint, getProduct, getClient);
                 }
+                Authorization.showAlert("", "Заказ оформлен.");
             } catch (SQLException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
+                // Обрабатываем исключение
+                if (e.getMessage().equals("45000")) {
+                    Authorization.showAlert("Ошибка", "Недостаточно количества на складе");
+                } else {
+                    throw new RuntimeException(e);
+                }
             }
         });
     }
-
 }

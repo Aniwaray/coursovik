@@ -1,13 +1,18 @@
 package com.example.coursework;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class Registration {
     @FXML
@@ -15,6 +20,8 @@ public class Registration {
 
     @FXML
     private TextField regFio, regLogin, regPassword, regTel;
+    @FXML
+    private Label labelInfo;
 
     Database database = new Database();
 
@@ -24,7 +31,6 @@ public class Registration {
         stage.close();
     }
 
-
     @FXML
     void initialize() {
 
@@ -33,11 +39,16 @@ public class Registration {
             public void handle(MouseEvent mouseEvent) {
                 try {
                     if (!regFio.getText().isEmpty() && !regLogin.getText().isEmpty() && !regPassword.getText().isEmpty() && !regTel.getText().isEmpty()) {
-                        database.clientAdd(regFio.getText(), regLogin.getText(), regPassword.getText(), regTel.getText());
-                        Authorization.showAlert("", "Вы зарегистрированны.");
-                        close();
+                        labelInfo.setText(database.clientAdd(regFio.getText(), regLogin.getText(), regPassword.getText(), regTel.getText()));
 
-                    }else {
+                        Timer timer = new Timer();
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                Platform.runLater(() -> close());
+                            }
+                        }, 2000);
+                    } else {
                         Authorization.showAlertError("Ошибка", "Заполните все поля.");
                     }
                 } catch (SQLException | ClassNotFoundException e) {

@@ -1,6 +1,5 @@
 package com.example.coursework;
 
-
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,33 +9,35 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-
 public class Account {
+    @FXML
+    ImageView imageHome, imageAudi, imageKia, imageMitsubishi, imageClear, imageSearch;
 
     @FXML
-    private ImageView imageHome, imageAudi, imageKia, imageMitsubishi, imageClear;
-
-    @FXML
-    private TextField textSearch;
+    TextField textSearch;
 
     @FXML
     Label labelFio, labelRole;
 
     @FXML
+    ComboBox<String> comboCategory, comboManufacture, comboStatus;
+
+    @FXML
+    ListView<ProductData> listView;
+
+    @FXML
     Button createReview;
 
-    @FXML
-    private ComboBox<String> comboCategory, comboManufacture, comboStatus;
-
-    @FXML
-    private ListView<ProductData> listView;
-
     public static int model;
+    static String id_productInAccount;
 
     Database database = new Database();
 
@@ -49,6 +50,16 @@ public class Account {
     private void search() {
         textSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             String filter = newValue.toLowerCase();
+
+            if (newValue.isEmpty()) {  // Если строка поиска пустая, то отображаем все данные
+                try {
+                    listView.getItems().clear();
+                    List<ProductData> allData = database.getProduct();
+                    listView.getItems().addAll(allData);
+                } catch (SQLException | ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            }
 
             while (!filter.isEmpty()) {
                 try {
@@ -102,9 +113,13 @@ public class Account {
             try {
                 List<ProductData> ls = database.getProduct();
                 listView.getItems().addAll(ls);
+                openContextMenu();
             } catch (SQLException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
+            comboCategory.getSelectionModel().select("Категория");
+            comboStatus.getSelectionModel().select("Статус");
+            comboManufacture.getSelectionModel().select("Поставщики");
         });
 
         imageAudi.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
@@ -114,6 +129,7 @@ public class Account {
             try {
                 List<ProductData> ls = database.getProductModel(model);
                 listView.getItems().addAll(ls);
+                openContextMenu();
             } catch (SQLException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -125,6 +141,7 @@ public class Account {
             try {
                 List<ProductData> ls = database.getProductModel(model);
                 listView.getItems().addAll(ls);
+                openContextMenu();
             } catch (SQLException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -136,8 +153,75 @@ public class Account {
             try {
                 List<ProductData> ls = database.getProductModel(model);
                 listView.getItems().addAll(ls);
+                openContextMenu();
             } catch (SQLException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
+            }
+        });
+
+        imageSearch.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            if ((!(comboCategory.getValue() == null) || !(comboCategory.getValue() == "Категория"))
+                    && (comboStatus.getValue() == null || comboStatus.getValue() == "Статус")) {
+                try {
+                    //сортируем по категории
+                    ArrayList<Integer> category = database.getCategory(String.valueOf(comboCategory.getValue()));
+                    listView.getItems().clear();
+                    // Создаем отсортированный список категорий для вывода
+                    List<ProductData> sortedItems = new ArrayList<>();
+                    for (int i = 0; i < category.size(); i++) {
+                        List<ProductData> ls = database.getCategoryForSorting(category.get(i));
+                        sortedItems.addAll(ls);
+                    }
+                    Collections.sort(sortedItems, Comparator.comparing(ProductData::getCategory));
+                    listView.getItems().addAll(sortedItems);
+
+                } catch (Exception e) {
+                    // Обработка ошибок
+                }
+            } else if (((comboCategory.getValue() == null) || (comboCategory.getValue() == "Категория"))
+                    && (!(comboStatus.getValue() == null) || !(comboStatus.getValue() == "Статус"))) {
+                try {
+                    //сортируем по статусу
+                    listView.getItems().clear();
+                    List<ProductData> sortedItemsStat = new ArrayList<>();
+                    List<ProductData> l = database.getStatusForSorting(comboStatus.getValue());
+                    sortedItemsStat.addAll(l);
+                    Collections.sort(sortedItemsStat, Comparator.comparing(ProductData::getStatus));
+                    listView.getItems().addAll(sortedItemsStat);
+                } catch (Exception e) {
+                    // Обработка ошибок
+                }
+            } else if ((!(comboCategory.getValue() == null) || !(comboCategory.getValue() == "Категория"))
+                    && (!(comboStatus.getValue() == null) || !(comboStatus.getValue() == "Статус"))) {
+                try {
+                    if (comboCategory.getValue() != null && comboStatus.getValue() != null) {
+                        listView.getItems().clear();
+                        ArrayList<Integer> cat = database.getCategory(String.valueOf(comboCategory.getValue()));
+                        if (comboStatus.getValue() == "Отсутствует") {
+                            ArrayList<Integer> stat = database.getProductStatNo();
+                            for (int i = 0; i < stat.size(); i++) {
+                                for (int j = 0; j < cat.size(); j++) {
+                                    if (stat.get(i) == cat.get(j)) {
+                                        List<ProductData> l = database.getProductWithId(stat.get(i));
+                                        listView.getItems().addAll(l);
+                                    }
+                                }
+                            }
+                        } else {
+                            ArrayList<Integer> stat = database.getProductStat();
+                            for (int i = 0; i < stat.size(); i++) {
+                                for (int j = 0; j < cat.size(); j++) {
+                                    if (stat.get(i) == cat.get(j)) {
+                                        List<ProductData> l = database.getProductWithId(stat.get(i));
+                                        listView.getItems().addAll(l);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    // Обработка ошибок
+                }
             }
         });
     }
@@ -146,119 +230,89 @@ public class Account {
 
         List<String> cat = database.getCategoryMain();
         comboCategory.setItems(FXCollections.observableArrayList(cat));
+        comboCategory.getItems().addAll("Категория");
 
-        List<String> stat = database.getStatusMain();
-        comboCategory.setItems(FXCollections.observableArrayList(stat));
+        comboStatus.getItems().addAll("Присутствует", "Отсутствует", "Статус");
 
         List<String> man = database.getManufactureMain();
-        comboCategory.setItems(FXCollections.observableArrayList(man));
+        comboManufacture.setItems(FXCollections.observableArrayList(man));
+        comboManufacture.getItems().addAll("Поставщики");
 
-            comboManufacture.setOnAction(event -> {
+        comboManufacture.setOnAction(event -> {
 
-                if (comboManufacture.getValue().equals("AutoPro")) {
-                    listView.getItems().clear();
+            if (comboManufacture.getValue().equals("AutoPro")) {
+                listView.getItems().clear();
 
-                    try {
-                        List<ProductData> ls = database.getProductSortMan(1);
-                        listView.getItems().addAll(ls);
-                        listView.setCellFactory(stringListView -> {
-                            ListCell<ProductData> cell = new Data();
-                            cell.setContextMenu(null);
-                            return cell;
-                        });
-                    } catch (SQLException | ClassNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
+                try {
+                    List<ProductData> ls = database.getProductSortMan(1);
+                    listView.getItems().addAll(ls);
+                    listView.setCellFactory(stringListView -> {
+                        ListCell<ProductData> cell = new Data();
+                        cell.setContextMenu(null);
+                        return cell;
+                    });
+                } catch (SQLException | ClassNotFoundException e) {
+                    throw new RuntimeException(e);
                 }
-                if (comboManufacture.getValue().equals("AutoTop")) {
-                    listView.getItems().clear();
-                    try {
-                        List<ProductData> ls = database.getProductSortMan(2);
-                        listView.getItems().addAll(ls);
-                        listView.setCellFactory(stringListView -> {
-                            ListCell<ProductData> cell = new Data();
-                            cell.setContextMenu(null);
-                            return cell;
-                        });
-                    } catch (SQLException | ClassNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
+            }
+            if (comboManufacture.getValue().equals("AutoTop")) {
+                listView.getItems().clear();
+                try {
+                    List<ProductData> ls = database.getProductSortMan(2);
+                    listView.getItems().addAll(ls);
+                    listView.setCellFactory(stringListView -> {
+                        ListCell<ProductData> cell = new Data();
+                        cell.setContextMenu(null);
+                        return cell;
+                    });
+                } catch (SQLException | ClassNotFoundException e) {
+                    throw new RuntimeException(e);
                 }
-            });
+            }
+            openContextMenu();
+        });
 
         List<ProductData> ls = database.getProduct();
         listView.getItems().addAll(ls);
         listView.setCellFactory(stringListView -> {
             ListCell<ProductData> cell = new Data();
             cell.setContextMenu(null);
+            openContextMenu();
             return cell;
         });
     }
 
-    public void Home(MouseEvent mouseEvent) throws SQLException, ClassNotFoundException {
+    public void openContextMenu() {
 
-        //вывели по категории
-        ArrayList<Integer> co = database.getCategory(String.valueOf(comboCategory.getValue()));
-        listView.getItems().clear();
-        try {
-            for (int i = 0; i < co.size(); i++) {
-                List<ProductData> ls = database.getProduct2(co.get(i));
-                listView.getItems().addAll(ls);
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        listView.setCellFactory(stringListView -> {
+            ListCell<ProductData> cell = new Data();
+            ContextMenu contextMenu = new ContextMenu();
 
-        //вывели по статусу
-        if (comboStatus.getValue() == "Присутствует") {
-            ArrayList<Integer> se = database.getProductStat();
-            listView.getItems().clear();
-            try {
-                for (int i = 0; i < se.size(); i++) {
-                    List<ProductData> ls = database.getProduct2(se.get(i));
-                    listView.getItems().addAll(ls);
+            MenuItem editItemPhoto = new MenuItem("Просмотреть доп. фото");
+            editItemPhoto.setOnAction(event -> {
+                ProductData item = cell.getItem();
+                try {
+                    id_productInAccount = String.valueOf(database.getIdProduct(item.getName()));
+                    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("additionalPhotosForAccount.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load(), 518, 303);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.show();
+                    stage.getIcons().add(new Image("C:/Users/Anna/IdeaProjects/coursework/logo.png"));
+                } catch (IOException | SQLException | ClassNotFoundException e) {
+                    throw new RuntimeException(e);
                 }
-            } catch (SQLException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            ArrayList<Integer> se = database.getProductStatNo();
-            listView.getItems().clear();
-            try {
-                for (int i = 0; i < se.size(); i++) {
-                    List<ProductData> ls = database.getProduct2(se.get(i));
-                    listView.getItems().addAll(ls);
-                }
-            } catch (SQLException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        }
+            });
 
-        //если выбраны двое
-        if (comboCategory.getValue() != null && comboStatus.getValue() != null) {
-            listView.getItems().clear();
-            ArrayList<Integer> c = database.getCategory(String.valueOf(comboCategory.getValue()));
-            if (comboStatus.getValue() == "Отсутствует") {
-                ArrayList<Integer> se = database.getProductStatNo();
-                for (int i = 0; i < se.size(); i++) {
-                    for (int j = 0; j < c.size(); j++) {
-                        if (se.get(i) == c.get(j)) {
-                            List<ProductData> l = database.getProduct2(se.get(i));
-                            listView.getItems().addAll(l);
-                        }
-                    }
+            contextMenu.getItems().addAll(editItemPhoto);
+            cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> {
+                if (isNowEmpty) {
+                    cell.setContextMenu(null);
+                } else {
+                    cell.setContextMenu(contextMenu);
                 }
-            } else {
-                ArrayList<Integer> se = database.getProductStat();
-                for (int i = 0; i < se.size(); i++) {
-                    for (int j = 0; j < c.size(); j++) {
-                        if (se.get(i) == c.get(j)) {
-                            List<ProductData> l = database.getProduct2(se.get(i));
-                            listView.getItems().addAll(l);
-                        }
-                    }
-                }
-            }
-        }
+            });
+            return cell;
+        });
     }
 }

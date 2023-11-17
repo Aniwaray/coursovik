@@ -15,9 +15,9 @@
             <Font name="Comic Sans MS Bold" size="21.0" />
         </font>
     </Label>
-    <Button fx:id="buttonRegistration" layoutX="117.0" layoutY="349.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" style="-fx-background-color: red; -fx-border-color: black;" text="Зарегистрироваться" textFill="#fff6f6">
+    <Button fx:id="buttonRegistration" layoutX="108.0" layoutY="349.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="158.0" style="-fx-background-color: red; -fx-border-color: black;" text="Зарегистрироваться" textFill="#fff6f6">
         <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="System Bold" size="13.0" />
         </font></Button>
     <TextField fx:id="regPassword" layoutX="113.0" layoutY="224.0" promptText="Пароль" style="-fx-border-color: black;" />
    <TextField fx:id="regFio" layoutX="112.0" layoutY="116.0" promptText="ФИО" style="-fx-border-color: black;" />
@@ -27,4 +27,8 @@
          <Image url="@../../../../../../../../../../study/мдк%2011_01%20ТРиЗБД/курсовая/reg.png" />
       </image>
    </ImageView>
+   <Label fx:id="labelInfo" layoutX="34.0" layoutY="410.0">
+      <font>
+         <Font name="Comic Sans MS Bold" size="12.0" />
+      </font></Label>
 </AnchorPane>
