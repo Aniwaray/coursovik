@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Order {
     @FXML
-    private Button buttonCreateOrder, buttonAddOrder;
+    private Button buttonCreateOrder, buttonAddOrder, buttonClear;
 
     @FXML
     private ComboBox<String> comboClient, comboPoint, comboProduct;
@@ -112,12 +112,14 @@ public class Order {
                 Authorization.showAlert("", "Заказ оформлен.");
             } catch (SQLException | ClassNotFoundException e) {
                 // Обрабатываем исключение
-                if (e.getMessage().equals("45000")) {
-                    Authorization.showAlert("Ошибка", "Недостаточно количества на складе");
-                } else {
-                    throw new RuntimeException(e);
-                }
+                Authorization.showAlertError("Ошибка", "Недостаточно количества на складе.");
             }
+        });
+        buttonClear.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            listProduct.getItems().clear();
+            listPrice.getItems().clear();
+            listCount.getItems().clear();
+            labelPrice.setText("0.0");
         });
     }
 }

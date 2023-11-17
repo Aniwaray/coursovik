@@ -18,19 +18,19 @@
       </Label>
       <ComboBox fx:id="comboProduct" layoutX="143.0" layoutY="179.0" prefWidth="150.0" promptText="Выберите продукт" style="-fx-background-color: white; -fx-border-color: black;" />
       <TextField fx:id="countProduct" layoutX="184.0" layoutY="242.0" prefHeight="26.0" prefWidth="68.0" promptText="Кол-во" style="-fx-border-color: black;" />
-      <Label layoutX="443.0" layoutY="482.0" text="Цена заказа:">
+      <Label layoutX="388.0" layoutY="482.0" text="Цена заказа:">
          <font>
-            <Font name="System Bold" size="16.0" />
+            <Font name="Comic Sans MS Bold" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="labelPrice" layoutX="553.0" layoutY="485.0" prefHeight="18.0" prefWidth="94.0" text="Label">
+      <Label fx:id="labelPrice" layoutX="504.0" layoutY="485.0" prefHeight="18.0" prefWidth="94.0" text="Label">
          <font>
             <Font name="Comic Sans MS Bold" size="13.0" />
          </font>
       </Label>
-      <Button fx:id="buttonAddOrder" layoutX="155.0" layoutY="429.0" mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: black;" text="Добавить в заказ">
+      <Button fx:id="buttonAddOrder" layoutX="154.0" layoutY="398.0" mnemonicParsing="false" style="-fx-background-color: black; -fx-border-color: white;" text="Добавить в заказ" textFill="WHITE">
          <font>
-            <Font size="14.0" />
+            <Font name="Comic Sans MS" size="14.0" />
          </font>
       </Button>
       <ComboBox fx:id="comboPoint" layoutX="130.0" layoutY="308.0" prefHeight="26.0" prefWidth="178.0" promptText="Выберите пункт выдачи" style="-fx-background-color: white; -fx-border-color: black;" />
@@ -57,9 +57,14 @@
             <Font name="Comic Sans MS Bold" size="12.0" />
          </font>
       </Label>
-      <Button fx:id="buttonCreateOrder" layoutX="679.0" layoutY="481.0" mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: black;" text="Оформить">
+      <Button fx:id="buttonCreateOrder" layoutX="177.0" layoutY="479.0" mnemonicParsing="false" style="-fx-background-color: red; -fx-border-color: white;" text="Оформить" textFill="WHITE">
          <font>
-            <Font size="13.0" />
+            <Font name="Comic Sans MS" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="buttonClear" layoutX="681.0" layoutY="479.0" mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: black;" text="Очистить">
+         <font>
+            <Font name="Comic Sans MS" size="13.0" />
          </font>
       </Button>
    </children>

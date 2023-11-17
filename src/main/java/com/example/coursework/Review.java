@@ -43,7 +43,7 @@ public class Review {
                     if (comboProduct.getValue() == null || textRating.getText().isEmpty()) {
                         Authorization.showAlertError("Ошибка", "Заполните все данные.");
                     } else {
-                        if(Integer.parseInt(textRating.getText()) >= 0 && Integer.parseInt(textRating.getText()) <= 5) {
+                        if(Integer.parseInt(textRating.getText()) > 0 && Integer.parseInt(textRating.getText()) <= 5) {
                             database.insertReviews(textRating.getText(), textComment.getText(), Authorization.id_client,
                                     database.getProductForInsert(comboProduct.getValue()));
                             Authorization.showAlert("", "Спасибо за ваш отзыв!");
