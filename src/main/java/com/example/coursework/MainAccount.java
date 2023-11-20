@@ -341,7 +341,7 @@ public class MainAccount {
                 }
             });
 
-            MenuItem editItemPhoto = new MenuItem("Просмотреть доп. фото");
+            MenuItem editItemPhoto = new MenuItem("Просмотр дополнительных фото");
             editItemPhoto.setOnAction(event -> {
                 ProductData item = cell.getItem();
                 try {
@@ -357,7 +357,7 @@ public class MainAccount {
                 }
             });
 
-            MenuItem editItemPhotoAdd = new MenuItem("Добавить доп. фото");
+            MenuItem editItemPhotoAdd = new MenuItem("Добавить дополнительные фото");
             editItemPhotoAdd.setOnAction(event -> {
                 ProductData item = cell.getItem();
                 try {

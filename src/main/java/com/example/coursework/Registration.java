@@ -40,14 +40,15 @@ public class Registration {
                 try {
                     if (!regFio.getText().isEmpty() && !regLogin.getText().isEmpty() && !regPassword.getText().isEmpty() && !regTel.getText().isEmpty()) {
                         labelInfo.setText(database.clientAdd(regFio.getText(), regLogin.getText(), regPassword.getText(), regTel.getText()));
-
-                        Timer timer = new Timer();
-                        timer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                Platform.runLater(() -> close());
-                            }
-                        }, 2000);
+                        if (labelInfo.getText().equals("Новый клиент успешно добавлен")) {
+                            Timer timer = new Timer();
+                            timer.schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    Platform.runLater(() -> close());
+                                }
+                            }, 2000);
+                        }
                     } else {
                         Authorization.showAlertError("Ошибка", "Заполните все поля.");
                     }

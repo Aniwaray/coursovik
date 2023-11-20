@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -29,6 +30,11 @@ public class ProductEdit extends ListCell<ProductData> {
 
     String getStatusForEdit, getImageForEdit;
     Database database = new Database();
+    @FXML
+    public void close() {
+        Stage stage = (Stage) buttonEdit.getScene().getWindow();
+        stage.close();
+    }
 
     @FXML
     void initialize() throws SQLException, ClassNotFoundException {
@@ -69,10 +75,12 @@ public class ProductEdit extends ListCell<ProductData> {
                             } else getStatusForEdit = "Присутствует";
 
                             database.updateProduct(textName.getText(),  textDescription.getText(),Integer.parseInt(textPrice.getText()),
-                                    Integer.parseInt(textStock.getText()), textImage.getText(), database.getCategoryForInsert(comboCategory.getValue()),
+                                    Integer.parseInt(textStock.getText()), getStatusForEdit, getImageForEdit, database.getCategoryForInsert(comboCategory.getValue()),
                                     database.getManufactureForInsert(comboManufacture.getValue()), database.getModelForInsert(comboModel.getValue()),
                                     Integer.parseInt(MainAccount.id_product));
+
                             Authorization.showAlert("", "Данные отредактированны. Обновите.");
+                            close();
                         } else {
                             Authorization.showAlertError("Ошибка", "Заполните все поля или проверьте корректность данных.");
                         }

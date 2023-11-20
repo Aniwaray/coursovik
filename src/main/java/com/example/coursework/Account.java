@@ -288,7 +288,7 @@ public class Account {
             ListCell<ProductData> cell = new Data();
             ContextMenu contextMenu = new ContextMenu();
 
-            MenuItem editItemPhoto = new MenuItem("Просмотреть доп. фото");
+            MenuItem editItemPhoto = new MenuItem("Просмотр дополнительных фото");
             editItemPhoto.setOnAction(event -> {
                 ProductData item = cell.getItem();
                 try {

@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.Objects;
 
@@ -132,9 +133,10 @@ public class Authorization {
                         } else {
                             showAlertError("Ошибка","Произошла ошибка при входе в личный кабинет.");
                             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("captcha.fxml"));
-                            Scene scene = new Scene(fxmlLoader.load(), 300, 200);
+                            Scene scene = new Scene(fxmlLoader.load(), 300, 140);
                             Stage stage = new Stage();
                             stage.setScene(scene);
+                            stage.initStyle(StageStyle.UNDECORATED);
                             stage.initModality(Modality.APPLICATION_MODAL);
                             stage.show();
                             stage.getIcons().add(new Image("C:/Users/Anna/IdeaProjects/coursework/logo.png"));

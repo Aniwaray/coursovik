@@ -47,8 +47,8 @@ public class AdditionalPhotosForAccount {
             Image image1 = new Image(urlImage);
             image.setImage(image1); // Отображаем изображение в ImageView
         } catch (Exception e) {
-            e.printStackTrace(); // Выводим информацию об исключении
-            throw new RuntimeException(e); // Повторно выбрасываем исключение
+            Authorization.showAlertError("Ошибка", "Нет дополнительных фото к выбранному товару.");
+            // Выводим информацию об исключении
         }
     }
 

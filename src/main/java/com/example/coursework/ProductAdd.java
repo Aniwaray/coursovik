@@ -8,6 +8,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -27,6 +28,11 @@ public class ProductAdd {
 
     String getStatusForAdd, getImageForAdd;
     Database database = new Database();
+    @FXML
+    public void close() {
+        Stage stage = (Stage) buttonAdd.getScene().getWindow();
+        stage.close();
+    }
 
     @FXML
     void initialize() throws SQLException, ClassNotFoundException {
@@ -65,9 +71,10 @@ public class ProductAdd {
                                     getStatusForAdd, getImageForAdd, database.getCategoryForInsert(comboCategory.getValue()),
                                     database.getManufactureForInsert(comboManufacture.getValue()),
                                     database.getModelForInsert(comboModel.getValue()));
-                            Authorization.showAlert("", "Данные добавлены. Обновите.");
+                            Authorization.showAlert("", "Товар добавлен. Обновите.");
+                            close();
                         } else {
-                            Authorization.showAlertError("Ошибка", "Заполните все поля или проверьте корректность данных.");
+                            Authorization.showAlertError("Ошибка", "Заполните все поля или проверьте корректность вводимых данных.");
                         }
                     } catch (SQLException | ClassNotFoundException e) {
                         throw new RuntimeException(e);

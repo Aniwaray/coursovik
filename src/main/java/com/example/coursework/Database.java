@@ -209,19 +209,6 @@ public class Database {
         return address;
     }
 
-    public ArrayList<String> getStatusMain() throws SQLException, ClassNotFoundException {
-        String sql = "SELECT * FROM product ORDER BY `id_product`";
-
-        Statement statement = getDbConnection().createStatement();
-        ResultSet resultSet = statement.executeQuery(sql);
-
-        ArrayList<String> address = new ArrayList<>();
-        while (resultSet.next())
-            address.add(resultSet.getString("productStatus"));
-
-        return address;
-    }
-
     public ArrayList<String> getPoint() throws SQLException, ClassNotFoundException {
         String sql = "SELECT * FROM point ORDER BY `id_point`";
 
@@ -552,18 +539,19 @@ public class Database {
         prSt.executeUpdate();
     }
 
-    public void updateProduct(String name, String desc, Integer price, Integer stock, String photo, Integer cat, Integer man, Integer mod, Integer idProd) throws SQLException, ClassNotFoundException {
-        String sql = "update product set productName =?, productDescription=?, productPrice =?, productQuantityInStock =?, productPhoto=?, category_id_category =?, manufacture_id_manufacture=?, model_cars_id_model=? where id_product=?";
+    public void updateProduct(String name, String desc, Integer price, Integer stock, String stat, String photo, Integer cat, Integer man, Integer mod, Integer idProd) throws SQLException, ClassNotFoundException {
+        String sql = "update product set productName =?, productDescription=?, productPrice =?, productQuantityInStock =?, productStatus = ?, productPhoto=?, category_id_category =?, manufacture_id_manufacture=?, model_cars_id_model=? where id_product=?";
         PreparedStatement prSt = getDbConnection().prepareStatement(sql);
         prSt.setString(1, name);
         prSt.setString(2, desc);
         prSt.setInt(3, price);
         prSt.setInt(4, stock);
-        prSt.setString(5, photo);
-        prSt.setInt(6, cat);
-        prSt.setInt(7, man);
-        prSt.setInt(8, mod);
-        prSt.setInt(9, idProd);
+        prSt.setString(5, stat);
+        prSt.setString(6, photo);
+        prSt.setInt(7, cat);
+        prSt.setInt(8, man);
+        prSt.setInt(9, mod);
+        prSt.setInt(10, idProd);
 
         prSt.executeUpdate();
     }
@@ -668,20 +656,6 @@ public class Database {
 
         PreparedStatement statement = getDbConnection().prepareStatement(sql);
         statement.setString(1, status);
-
-        ResultSet res = statement.executeQuery();
-        ArrayList<ProductData> product = new ArrayList<>();
-
-        while (res.next())
-            product.add(new ProductData(res.getString("productName"), res.getString("productDescription"), res.getInt("productPrice"), res.getInt("productQuantityInStock"), res.getString("productStatus"), res.getString("productPhoto"), res.getInt("category_id_category"), res.getInt("manufacture_id_manufacture"), res.getInt("model_cars_id_model")));
-        return product;
-    }
-    public ArrayList<ProductData> getStatusAndCategoryForSorting(String status, Integer idCat) throws SQLException, ClassNotFoundException {
-        String sql = "SELECT * FROM product where productStatus = ? and  category_id_category = ?";
-
-        PreparedStatement statement = getDbConnection().prepareStatement(sql);
-        statement.setString(1, status);
-        statement.setInt(1, idCat);
 
         ResultSet res = statement.executeQuery();
         ArrayList<ProductData> product = new ArrayList<>();
