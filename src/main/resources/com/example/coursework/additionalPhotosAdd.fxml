@@ -6,11 +6,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="346.0" prefWidth="388.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursework.AdditionalPhotosAdd">
    <children>
-      <TextField fx:id="nameImage1" layoutX="121.0" layoutY="115.0" promptText="Имя фото" style="-fx-border-color: black;" />
-      <TextField fx:id="nameImage2" layoutX="121.0" layoutY="188.0" promptText="Имя фото" style="-fx-border-color: black;" />
+      <TextField fx:id="nameImage1" layoutX="121.0" layoutY="115.0" promptText="Фото (png / jpg)" style="-fx-border-color: black;" />
+      <TextField fx:id="nameImage2" layoutX="121.0" layoutY="188.0" promptText="Фото (png / jpg)" style="-fx-border-color: black;" />
       <Button fx:id="buttonAdd" layoutX="160.0" layoutY="283.0" mnemonicParsing="false" style="-fx-border-color: black; -fx-background-color: white;" text="Добавить" />
       <Label layoutX="96.0" layoutY="38.0" text="Добавление доп. фото">
          <font>

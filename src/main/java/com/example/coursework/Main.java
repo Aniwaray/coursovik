@@ -16,6 +16,7 @@ public class Main extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 764, 573);
         stage.setScene(scene);
         stage.show();
+        stage.setResizable(false);
         stage.getIcons().add(new Image("C:/Users/Anna/IdeaProjects/coursework/logo.png"));
     }
 

@@ -337,7 +337,7 @@ public class MainAccount {
                     database.deleteProduct(Integer.valueOf(id_product));
                     Authorization.showAlert("", "Данные удалены. Обновите.");
                 } catch (SQLException | ClassNotFoundException e) {
-                    throw new RuntimeException(e);
+                    Authorization.showAlertError("Ошибка", "Этот товар нельзя удалить, пока он есть в заказе.");
                 }
             });
 
